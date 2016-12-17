@@ -12,13 +12,6 @@
         font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
         font-size: 100%;
       }
-      #status {
-        /* avoid an excessively wide status text */
-        white-space: pre;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        max-width: 400px;
-      }
     </style>
 
     <!--
@@ -26,10 +19,10 @@
       - Policy documentation[1] for details and explanation.
       -
       - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
-     -->  
+     -->
     <script src="../lib/jquery.min.js"></script>
     <!-- <script src="../models/checkForFakes.js"></script> -->
-    <script src="../storageController/storageController.js"></script>  
+    <script src="../storageController/storageController.js"></script>
     <script src="../popupController/popup.js"></script>
     <script src="../assets/circle-512.png"></script>
     <link rel='stylesheet' href='../lib/bootstrap/dist/css/bootstrap.min.css'/>
@@ -37,12 +30,23 @@
     <link rel='stylesheet' href='popup.css'/>
   </head>
   <body>
-    
-    <button id="settings" href="../options/options.html">Options</button>
-    <button id="addToBlacklist">Add to Blacklist</button>
-    <button id="removeFromBlacklist">Unblacklist Page</button>
-    <button id="disable">Disable</button>
-    <button id="enable">Enable</button>
+    <ul class='menu'>
+      <div class='otherDiv'>
+        <li class='menuTitle'> NewsGate </li>
+      </div>
+      <div class='middleDiv'>
+        <li id="addToBlacklist" class='menuItem menuItemFirst clickable'>Add to Blacklist</li>
+        <li id="removeFromBlacklist" class='menuItem clickable'>Unblacklist Page</li>
+        <li id="disable" class='menuItem clickable'>Disable</li>
+        <li id="enable" class='menuItem menuItemLast'>Enable</li>
+        <div class='menuItem'>
+          152
+        </div>
+      </div>
+      <div class='otherDiv'>
+        <li id="settings" href="../options/options.html" class='menuItemOptions clickable'>Options</li>
+      </div>
+    </ul>
   </body>
 </html>
 

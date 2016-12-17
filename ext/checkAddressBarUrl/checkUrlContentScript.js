@@ -23,6 +23,7 @@ chrome.runtime.sendMessage({ action: 'getUrl' }, function(getUrlResponse) {
             renderDom();
           }
       });
+
     }
   });
 

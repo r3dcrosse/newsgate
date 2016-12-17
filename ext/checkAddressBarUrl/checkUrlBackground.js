@@ -13,24 +13,24 @@ function getCurrentTabUrl(callback) {
   });
 }
 
-// THIS IS A LISTENER FOR REQUESTS FROM CONTENT SCRIPTS THAT REQUIRE 
+// THIS IS A LISTENER FOR REQUESTS FROM CONTENT SCRIPTS THAT REQUIRE
 // THE ADDRESS BAR URL OR DATA FROM STORAGE
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if (request.action === 'getUrl') {
-      
+
       // DISABLER /////////////////////////////////////////////////////////////////////////////
-      // Tells content scripts to not kick off process if in disabled state 
+      // Tells content scripts to not kick off process if in disabled state
       /////////////////////////////////////////////////////////////////////////////////////////
       getDisabledState(function(isDisabled) {
         if (isDisabled) {
-          sendResponse({disabled: 'Disabled State'});  
+          sendResponse({disabled: 'Disabled State'});
       /////////////////////////////////////////////////////////////////////////////////////////
         } else {
           getCurrentTabUrl(function(tabUrl) {
             sendResponse({url: filterLinks(tabUrl)});
           });
-        }        
+        }
       })
     }
     if (request.action === 'checkUrl') {
@@ -38,9 +38,11 @@ chrome.runtime.onMessage.addListener(
       getBlacklist(function(blackList) {
         getUserlist(function(userList) {
           getWhitelist(function(whiteList) {
-            sendResponse(userList.concat(blackList).filter(function(obj) {return whiteList.indexOf(obj) === -1;}).reduce(function(pre, cur) {
-              return cur.url === url ? {fake: true} : pre;
-            }, {fake: false}));
+            sendResponse(userList.concat(blackList)
+              .filter(function(obj) { return whiteList.indexOf(obj) === -1; } )
+              .reduce(function(pre, cur) {
+                return cur.url === url ? { fake: true, urlObj: cur } : pre;
+              }, {fake: false}));
           });
         });
       });
